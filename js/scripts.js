@@ -764,35 +764,55 @@ BuildingData.forEach(function (BuildingRecord) {
 
 // event listeners
 
-$('#fly-to-the-dirtest').on('click', function() {
+$('#fly-to-the-dirtest').on('click', function () {
     map.flyTo({
         center: [-73.891611, 40.853346],
         zoom: 16
     })
 })
 
+map.on('load', function () {
+    // import our pluto data that we converted to wgs84 in QGIS
+    map.addSource('borough_boundaries', {
+        type: 'geojson',
+        data: './data/borough_boundaries.geojson'
+    })
 
-// // Fetch data from Socrata API
-// fetch('https://data.cityofnewyork.us/resource/7x5e-2fxh.json')
-//     .then(resp => resp.json())
-//     .then(data => {
-//         // Add markers to map
-//         data.forEach(item => {
-//             // Check if latitude and longitude are valid numbers
-//             if (typeof item.latitude === 'number' && !isNaN(item.latitude) && typeof item.longitude === 'number' && !isNaN(item.longitude)) {
-//                 var marker = new mapboxgl.Marker()
-//                     .setLngLat([item.longitude, item.latitude])
-//                     .addTo(map);
-//             }
-//         });
-//     });
+    map.addLayer({
+        id: 'fill-borough',
+        type: 'fill',
+        source: 'borough_boundaries',
+        paint: {
+            'fill-color': [
+                'match',
+                ['get', 'boro_code'],
+                '1',
+                '#f4f455',
+                '2',
+                '#f7d496',
+                '3',
+                '#FF9900',
+                '4',
+                '#f7cabf',
+                '5',
+                '#ea6661',
+                /* other */ '#ccc'
+            ]
+        }
+    })
 
-// // create the popup
-// const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-//     'CHello World!'
-//     );
 
-// // Create a default Marker and add it to the map.
-// const marker1 = new mapboxgl.Marker()
-//     .setLngLat([12.554729, 55.70651])
-//     .addTo(map);
+
+    map.on('click', 'fill-borough', (e) => {
+        console.log('foo', e.features)
+
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(e.features[0].properties.boro_name + ', # of Buildings: ' + e.features[0].properties.buildings)
+            .addTo(map);
+    });
+
+
+
+
+})

@@ -6,40 +6,49 @@
     <title>Display a map on a webpage</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet">
-    <link href = "css/styles.css" rel  = "stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
 </head>
 
 <body>
-    
+
     <div id='header'>
         <h1>Dirtiest 100</h1>
         <p>100 NYC Buildings that emits the most carbon emission.</p>
-      </div>
-    <div class ='sidebar'>
+    </div>
+    <div class='sidebar'>
 
         <div class="title">
-            70% of NYC's greenhouse gas emission comes from the buildings. 
+            70% of NYC's greenhouse gas emission comes from the buildings.
         </div>
         <div class="description">
-            Here are the top 100 emitters according to NYC Local Law 84 Disclosure. 
+            Here are the top 100 emitters according to NYC Local Law 84 Disclosure.
         </div>
         <div class="description">
             Click a marker to see the property name, emission, and the property use type.
+            Click on a region to see borough and # of buildings in it.
         </div>
         <div class="description">
-            Color denotes property use type. 
+            Color of regions denote borough.
+            Color of markers denotes property use type.
+            Orange: Wastewater Treatement;
+            Violet: College/Universites;
+            Green: Hospitals;
+            Mustard: Multifamily Housing;
+            Black: Office;
+            Grey: Others.
         </div>
         <button id="fly-to-the-dirtest" class="button-18" role="button">Fly to the dirtest</button>
-    </div>  
-       
-    
+    </div>
+
+
     <!-- HTML !-->
 
 
     <div id="map"></div>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
 </body>
+
 </html>
