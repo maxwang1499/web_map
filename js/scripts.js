@@ -772,44 +772,50 @@ $('#fly-to-the-dirtest').on('click', function () {
 })
 
 map.on('load', function () {
-    // import our pluto data that we converted to wgs84 in QGIS
+    // import the borough boundary
     map.addSource('borough_boundaries', {
         type: 'geojson',
         data: './data/borough_boundaries.geojson'
     })
-
+    //Color the borough based on the number of dirtest 100 it contains. 
     map.addLayer({
         id: 'fill-borough',
         type: 'fill',
         source: 'borough_boundaries',
         paint: {
             'fill-color': [
-                'match',
-                ['get', 'boro_code'],
-                '1',
-                '#f4f455',
-                '2',
-                '#f7d496',
-                '3',
-                '#FF9900',
-                '4',
-                '#f7cabf',
-                '5',
-                '#ea6661',
-                /* other */ '#ccc'
+                'interpolate',
+                ['linear'],
+                ['get', 'buildings'],
+                1,
+                '#ffffb2',
+                15,
+                '#fecc5c',
+                30,
+                '#fd8d3c',
+                45,
+                '#f03b20',
+                60,
+                '#bd0026'
             ]
         }
     })
 
 
 
-    map.on('click', 'fill-borough', (e) => {
+    //Now, we will add a pop up that shows how much dirty 100 is in each borough.
+    let popup = new mapboxgl.Popup({ closeButton: false, closeOnClick: false });
+    // display only when hovered
+    map.on('mouseenter', 'fill-borough', (e) => {
         console.log('foo', e.features)
 
-        new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
+        popup.setLngLat(e.lngLat)
             .setHTML(e.features[0].properties.boro_name + ', # of Buildings: ' + e.features[0].properties.buildings)
             .addTo(map);
+    });
+    //disappear when unhovered
+    map.on('mouseleave', 'fill-borough', () => {
+        popup.remove();
     });
 
 
