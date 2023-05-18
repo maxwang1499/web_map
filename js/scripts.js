@@ -68,7 +68,7 @@ map.on('load', () => {
   map.on('mouseenter', 'building-dots', (e) => {
 
     const lat = e.features[0].properties['latitude']
-    const long = e.features[0].properties['longtitude']
+    const long = e.features[0].properties['longitude']
     const property_name = e.features[0].properties['property_name']
     popup.setLngLat([long, lat])
       .setHTML(property_name)
@@ -144,4 +144,12 @@ map.on('style.load', () => {
   );
 });
 
+// event listeners
+
+$('#fly-to-the-dirtest').on('click', function() {
+    map.flyTo({
+        center: [-73.891611, 40.853346],
+        zoom: 16
+    })
+})
 
