@@ -6,14 +6,18 @@
     <title>Display a map on a webpage</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
     <link href="css/styles.css" rel="stylesheet">
 </head>
 
 <body>
-
+     
+    <div id="geocoder" class="geocoder"></div>
+ 
+      
     <div id='header'>
-        <h1>Dirtiest 100</h1>
-        <p>100 NYC Buildings that emits the most carbon emission.</p>
+        <h1>NYC Building Emission Map</h1>
+        <p>Check your building's emission and LL97 Compliance status. </p>
     </div>
     <div class='sidebar'>
 
@@ -21,21 +25,17 @@
             70% of NYC's greenhouse gas emission comes from the buildings.
         </div>
         <div class="description">
-            Here are the top 100 emitters according to NYC Local Law 84 Disclosure. Just those 100 buildings account for 63% of the emission in the 27,000 building disclosures.
+             In order to reach its 2050 carbon neutrality goal, NYC passed Local Law 97, which places building-specific carbon thresholds on any building with gross square footage over 25,000 squarefeet
+             and changes a penalty for every unit of carbon that exceeds the threshold. The law kicks in 2024, with a more stringent threshold planned out in 2030. 
         </div>
         <div class="description">
-            Click a marker to see the property name, emission, and the property use type.
-            Hover over a region to see borough and # of buildings in it.
+            Click a circle to see the property name, emission, and the penalty amount.
         </div>
         <div class="description">
-            Color of regions denote borough and how many dirty 100 buildings it contain.
-            Color of markers denotes property use type.
-            Orange: Wastewater Treatement;
-            Violet: College/Universites;
-            Green: Hospitals;
-            Mustard: Multifamily Housing;
-            Black: Office;
-            Grey: Others.
+            Color of markers denotes penalty status.
+            Green: no penalty;
+            Orange: subject to penalty starting 2030;
+            Red: Subject to penalty starting in 2024.
         </div>
         <button id="fly-to-the-dirtest" class="button-18" role="button">Fly to the dirtest</button>
     </div>
@@ -48,6 +48,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
     <script src="js/scripts.js"></script>
 </body>
 

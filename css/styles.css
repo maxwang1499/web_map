@@ -11,6 +11,25 @@ body {
     z-index: 0;
 }
 
+/* ////////////  Search Bar //////////// */
+
+.geocoder {
+    position: absolute;
+    z-index: 15;
+    width: 20%;
+    left: 17%;
+    margin-left: -15%;
+    top: 90px;
+    }
+    .mapboxgl-ctrl-geocoder {
+    min-width: 100%;
+    z-index: 15
+    }
+    #map {
+    margin-top: 75px;
+    }
+
+/* ////////////  Side Bar //////////// */
 #header {
     background-color: white;
     color: #333;
@@ -43,7 +62,7 @@ body {
     background: white;
     padding: 20px;
     border-radius: 15px;
-    margin-top: 25px;
+    margin-top: 60px;
     margin-left: 25px;
     top: 80px;
     left: 0;
@@ -60,6 +79,7 @@ body {
     font-size: 14px;
     margin-bottom: 10px;
 }
+
 
 /* Beautiful button from https://getcssscan.com/css-buttons-examples */
 .button-18 {
