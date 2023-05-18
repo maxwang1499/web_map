@@ -66,6 +66,7 @@ map.on('load', () => {
   let popup = new mapboxgl.Popup({ closeButton: false, closeOnClick: false });
   // display only when hovered
   map.on('mouseenter', 'building-dots', (e) => {
+
     const lat = e.features[0].properties['latitude']
     const long = e.features[0].properties['longtitude']
     const property_name = e.features[0].properties['property_name']
@@ -80,28 +81,6 @@ map.on('load', () => {
 
 });
 
-// map.on('click', 'fill-cropvalues-totalexports', (e) => {
-//             const state_name = e.features[0].properties['name']
-            
-
-//             $('#sidebar').html(`
-//             <div>
-//                 <h2>
-//                     ${state_name} 
-//                 </h2>
-//                 <p>${state_name} exported $ ${(total_exports_value_millions).toLocaleString('en-US')} 
-//                 worth in agricultural products in 2021. Their largest export is ${largest_export}. </p>
-//                 <h3>Value of State Exports</h3>
-//                 <dt> <h4>Product</h4>
-//                 <dd> <h4>Export Value (in millions)</h4>
-//                 <dd> <h4>% of total</h4>
-//                 <dt> Beef and Veal 
-//                 <dd> $ ${beef_and_veal.toLocaleString('en-US')}
-//                 <dd> ${((beef_and_veal) / (total_exports_value) * 100).toFixed(2)}% 
-                
-//             </div>
-//             `)
-// })
 //Add the search box.
 //////////////////////////
 const geocoder = new MapboxGeocoder({
