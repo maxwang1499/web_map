@@ -223,7 +223,7 @@ map.on('style.load', () => {
 
 $('#fly-to-the-dirtest').on('click', function() {
     map.flyTo({
-        center: [-73.891611, 40.853346],
+        center: [-73.89089872008321, 40.853076337167046],
         zoom: 18
     })
 })
