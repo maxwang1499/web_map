@@ -75,7 +75,7 @@ map.on('load', () => {
       .addTo(map);
   });
   //disappear when unhovered
-  map.on('mouseleave', 'buildings', () => {
+  map.on('mouseleave', 'building-dots', () => {
     popup.remove();
   });
 
@@ -92,6 +92,81 @@ const geocoder = new MapboxGeocoder({
 });
 
 document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
+//Add info bar for detailed building info.
+//////////////////////////////////////////////////////////////////////////////
+
+const name_display = document.getElementById('name');
+const address_display = document.getElementById('address');
+const use_display = document.getElementById('use');
+const year_display = document.getElementById('year');
+const pen2024_display = document.getElementById('pen2024');
+const pen2030_display = document.getElementById('pen2030');
+const emission_display = document.getElementById('emission');
+const electric_display = document.getElementById('electric');
+const gas_display = document.getElementById('gas');
+const oil2_display = document.getElementById('oil2');
+const oil4_display = document.getElementById('oil4');
+const grade_display = document.getElementById('grade');
+
+let ID = null;
+
+map.on('mousemove', 'building-dots', (event) => {
+  map.getCanvas().style.cursor = 'pointer';
+  // Set constants equal to the data we are intersted in
+  const name = event.features[0].properties.property_name;
+  const address = event.features[0].properties.standardized_address;
+  const use = event.features[0].properties.property_use_type;
+  const year = event.features[0].properties.construction_year;
+  const pen2024 = event.features[0].properties.penalties_2024_2029;
+  const pen2030 = event.features[0].properties.penalties_2030_2035;
+  const emission = event.features[0].properties.carbon_emissions;
+  const electric = event.features[0].properties.electricity_kWh;
+  const gas = event.features[0].properties.natural_gas_kBtu;
+  const oil2 = event.features[0].properties['properties.fuel_oil_#2_kBtu'];
+  const oil4 = event.features[0].properties['properties.fuel_oil_#4_kBtu'];
+  const grade = event.features[0].properties.energy_grade;
+
+  // Check whether features exist
+  if (event.features.length === 0) return;
+  // Display the info in the infobar
+  name_display.textContent = name;
+  address_display.textContent = address;
+  use_display.textContent = use;
+  year_display.textContent = year;
+  pen2024_display.textContent = pen2024;
+  pen2030_display.textContent = pen2030;
+  emission_display.textContent = emission;
+  electric_display.textContent = electric;
+  gas_display.textContent = gas;
+  oil2_display.textContent = oil2;
+  oil4_display.textContent = oil4;
+  grade_display.textContent = grade;
+
+  // If ID for the hovered feature is not null,
+  // use removeFeatureState to reset to the default behavior
+  if (ID) {
+    map.removeFeatureState({
+      source: 'building-dots',
+      id: ID
+    });
+  }
+
+  ID = event.features[0].id;
+
+  // When the mouse moves over the building-dots layer, update the
+  // feature state for the feature under the mouse
+  map.setFeatureState(
+    {
+      source: 'building-dots',
+      id: ID
+    },
+    {
+      hover: true
+    }
+  );
+});
+
 
 //Add 3D buildings at closer zoom.
 //////////////////////////////////////////////////////////////////////////////
@@ -149,7 +224,7 @@ map.on('style.load', () => {
 $('#fly-to-the-dirtest').on('click', function() {
     map.flyTo({
         center: [-73.891611, 40.853346],
-        zoom: 16
+        zoom: 18
     })
 })
 
