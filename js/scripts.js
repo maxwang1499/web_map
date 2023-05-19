@@ -79,19 +79,6 @@ map.on('load', () => {
     popup.remove();
   });
 
-});
-
-//Add the search box.
-//////////////////////////
-const geocoder = new MapboxGeocoder({
-  accessToken: mapboxgl.accessToken,
-  mapboxgl: mapboxgl,
-  placeholder: 'Find a building',
-  zoom: 17,
-  marker: false
-});
-
-document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
 //Add info bar for detailed building info.
 //////////////////////////////////////////////////////////////////////////////
@@ -111,8 +98,17 @@ const grade_display = document.getElementById('grade');
 
 let ID = null;
 
-map.on('mousemove', 'building-dots', (event) => {
-  map.getCanvas().style.cursor = 'pointer';
+map.on('click', 'building-dots', (event) => {
+  //fly to the location
+  const lat = event.features[0].properties['latitude'];
+  const long = event.features[0].properties['longitude'];
+  map.flyTo({center: [long, lat], zoom: 17, pitch: 45,
+    // Set essential to true for smooth transition
+    essential: true 
+  });
+
+
+
   // Set constants equal to the data we are intersted in
   const name = event.features[0].properties.property_name;
   const address = event.features[0].properties.standardized_address;
@@ -165,8 +161,31 @@ map.on('mousemove', 'building-dots', (event) => {
       hover: true
     }
   );
+
+  // Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'building-dots', () => {
+  map.getCanvas().style.cursor = 'pointer';
+  });
+   
+  // Change it back to a pointer when it leaves.
+  map.on('mouseleave', 'building-dots', () => {
+  map.getCanvas().style.cursor = '';
+  });
 });
 
+});
+
+//Add the search box.
+//////////////////////////
+const geocoder = new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken,
+  mapboxgl: mapboxgl,
+  placeholder: 'Find a building',
+  zoom: 17,
+  marker: false
+});
+
+document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
 //Add 3D buildings at closer zoom.
 //////////////////////////////////////////////////////////////////////////////
