@@ -180,7 +180,7 @@ map.on('mouseenter', 'building-dots', () => {
 const geocoder = new MapboxGeocoder({
   accessToken: mapboxgl.accessToken,
   mapboxgl: mapboxgl,
-  placeholder: 'Find a building',
+  placeholder: 'Find a Location',
   zoom: 17,
   marker: false
 });
@@ -238,12 +238,14 @@ map.on('style.load', () => {
   );
 });
 
-// event listeners
+// back to city view buttom
+////////////////////////////////////
 
-$('#fly-to-the-dirtest').on('click', function() {
+$('#back').on('click', function() {
     map.flyTo({
-        center: [-73.89089872008321, 40.853076337167046],
-        zoom: 18
+        center: [-73.9948020038122, 40.735146045214435],
+        zoom: 12.5,
+        pitch: 0
     })
 })
 

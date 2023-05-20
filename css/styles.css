@@ -91,6 +91,40 @@ body {
     margin-bottom: 10px;
 }
 
+.button {
+    position: absolute;
+    background-color: #24892d; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    display: inline-block;
+    margin: 4px 4px;
+    border-radius: 5px;
+  }
+
+  .button2 {
+    position: absolute;
+    background-color: #ffbc02; /* Mustard */
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    display: inline-block;
+    margin: 4px 4px;
+    border-radius: 5px;
+  }
+
+  .button3 {
+    position: absolute;
+    background-color: #e01a27; /* Red */
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    display: inline-block;
+    margin: 4px 4px;
+    border-radius: 5px;
+  }
+  
+
 /* ////////////  Info Bar //////////// */
 
 .building-info {
